@@ -1,0 +1,55 @@
+@import '../../utils/variables';
+@import '../../utils/mixins';
+
+.header {
+  padding: 13px 16px 13px;
+  background-color: #FFFFFF;
+
+  @include onTablet {
+    padding: 13px 32px 13px;
+  }
+
+  @include onDesktop {
+    padding: 13px 60px 13px;
+  }
+
+  @media(min-width: 1170px) {
+    padding: 13px 0 13px;
+  }
+
+  &__content {
+    margin: 0 auto;
+    max-width: 1170px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__image {
+    width: 104px;
+    height: 26px;
+    background-image: url('../../images/Logo.svg');
+    background-repeat: no-repeat;
+  }
+
+  &__button {
+    margin-right: 10px;
+
+    &:last-child {
+      margin: 0;
+    }
+  }
+}
+
+.button {
+  width: 100px;
+  height: 34px;
+
+  background-color: $primaryColor;
+  border-radius: 80px;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $primaryColorHover;
+  }
+}
