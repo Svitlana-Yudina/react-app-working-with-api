@@ -1,0 +1,57 @@
+@import '../../utils/variables';
+@import '../../utils/mixins';
+
+.assignment {
+  margin: 0 auto;
+  max-width: $maxScreenWidth;
+
+  &__bg {
+    height: 500px;
+    width: 100%;
+    
+    background-image: url('../../images/mobile.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: left bottom;
+
+    @include onDesktop {
+      height: 650px;
+      background-image: url('../../images/desktop.png');
+    }
+
+    @include onDesktopXL {
+      background-image: url('../../images/desktop_XL.png');
+    }
+  }
+
+  &__content {
+    padding: 40px 16px 71px;
+
+    @include onTablet {
+      padding: 89px 16px 88px;
+    }
+  
+    @include onDesktop {
+      padding: 164px 16px 163px;
+    }
+  }
+}
+
+.test-article {
+  margin: 0 auto;
+  max-width: 380px;
+
+  text-align: center;
+  color: #FFFFFF;
+
+  &__title {
+    margin-bottom: 21px;
+
+    font-size: 40px;
+    line-height: 40px;
+  }
+
+  &__description {
+    margin-bottom: 32px;
+  }
+}

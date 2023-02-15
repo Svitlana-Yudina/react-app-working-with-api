@@ -3,6 +3,7 @@
 
 .header {
   padding: 13px 16px 13px;
+
   background-color: #FFFFFF;
 
   @include onTablet {
@@ -13,13 +14,14 @@
     padding: 13px 60px 13px;
   }
 
-  @media(min-width: 1170px) {
+  @include onDesktopXL {
     padding: 13px 0 13px;
   }
 
   &__content {
     margin: 0 auto;
-    max-width: 1170px;
+    max-width: $maxScreenWidth;
+    
     display: flex;
     justify-content: space-between;
   }
@@ -27,6 +29,7 @@
   &__image {
     width: 104px;
     height: 26px;
+
     background-image: url('../../images/Logo.svg');
     background-repeat: no-repeat;
   }
