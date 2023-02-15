@@ -1,16 +1,26 @@
-html {
-  font-family: Roboto, sans-serif;
+@font-face {
+  font-family: 'Nunito';
+  src: url('../fonts/Nunito/Nunito-Regular.ttf') format('truetype');
   font-style: normal;
   font-weight: 400;
-  font-size: 12px;
-  line-height: 14px;
+}
+
+html {
+  font-family: 'Nunito', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
 }
 
 h1,
 h2,
 p,
-a {
-  font-size: inherit;
+a,
+button {
+  font-family: inherit;
   font-style: inherit;
   font-weight: inherit;
+  font-size: inherit;
+  line-height: inherit;
 }
