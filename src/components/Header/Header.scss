@@ -56,4 +56,8 @@
   &:hover {
     background-color: $primaryColorHover;
   }
+
+  &--big {
+    width: 120px;
+  }
 }

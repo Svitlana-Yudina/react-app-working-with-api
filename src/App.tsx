@@ -2,7 +2,7 @@ import React from 'react';
 import './App.scss';
 import { Assignment } from './components/Assignment';
 import { Header } from './components/Header';
-import { UserCard } from './components/UserCard';
+import { UserList } from './components/UserList';
 
 export const App: React.FC = () => {
   return (
@@ -10,7 +10,7 @@ export const App: React.FC = () => {
       <div className="app__content">
         <Header />
         <Assignment />
-        <UserCard />
+        <UserList />
       </div>
     </div>
   );
