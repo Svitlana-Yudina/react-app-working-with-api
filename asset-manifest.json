@@ -1,18 +1,19 @@
 {
   "files": {
-    "main.css": "./static/css/main.128b46ec.css",
-    "main.js": "./static/js/main.b36c15ea.js",
+    "main.css": "./static/css/main.8a08e4ed.css",
+    "main.js": "./static/js/main.e63344af.js",
     "static/media/desktop_XL.png": "./static/media/desktop_XL.cff66695c61b9e9363f3.png",
     "static/media/desktop.png": "./static/media/desktop.337762fabcfb75abc4e9.png",
     "static/media/mobile.png": "./static/media/mobile.9d2112ce543ea7a65cbf.png",
     "static/media/Nunito-Regular.ttf": "./static/media/Nunito-Regular.99a3b019e7727ac19479.ttf",
     "static/media/Logo.svg": "./static/media/Logo.56bda82bd882001476c0.svg",
+    "static/media/user.png": "./static/media/user.451c296bece7face17c9.png",
     "index.html": "./index.html",
-    "main.128b46ec.css.map": "./static/css/main.128b46ec.css.map",
-    "main.b36c15ea.js.map": "./static/js/main.b36c15ea.js.map"
+    "main.8a08e4ed.css.map": "./static/css/main.8a08e4ed.css.map",
+    "main.e63344af.js.map": "./static/js/main.e63344af.js.map"
   },
   "entrypoints": [
-    "static/css/main.128b46ec.css",
-    "static/js/main.b36c15ea.js"
+    "static/css/main.8a08e4ed.css",
+    "static/js/main.e63344af.js"
   ]
 }
