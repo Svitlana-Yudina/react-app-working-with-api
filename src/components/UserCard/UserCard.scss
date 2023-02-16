@@ -27,8 +27,27 @@
 
   &__text {
     height: 26px;
+    position: relative;
 
     overflow: hidden; // All text wich beyond element will be hidden
     text-overflow: ellipsis; // All hidden overflow text will be replaced by '...'
-  }                          // it doesn't work without overflow: hidden and white-space: nowrap
+                              // it doesn't work without overflow: hidden and white-space: nowrap
+    &::after {
+      padding: 3px 16px;
+      display: none;
+      content: attr(data-title);
+      position: absolute;
+      text-align: center;
+      top: 0;
+      left: 0;
+      width: max-content;
+      color: #FFFFFF;
+      background: rgba(0, 0, 0, 0.87);
+      border-radius: 4px;
+    }
+
+    &:hover::after{
+      display: block;
+    }
+  }
 }

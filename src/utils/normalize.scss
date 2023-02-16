@@ -17,15 +17,22 @@ html {
 body {
   overflow-x: hidden;
 }
-
 h1,
 h2,
 p,
 a,
-button {
+button,
+input,
+label {
   font-family: inherit;
   font-style: inherit;
   font-weight: inherit;
   font-size: inherit;
   line-height: inherit;
+}
+
+h1,
+h2 {
+  font-size: 40px;
+  line-height: 40px;
 }

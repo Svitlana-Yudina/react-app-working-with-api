@@ -36,10 +36,6 @@
 
   &__button {
     margin-right: 10px;
-
-    &:last-child {
-      margin: 0;
-    }
   }
 }
 
@@ -59,5 +55,15 @@
 
   &--big {
     width: 120px;
+  }
+
+  &--disabled {
+    background-color: #B4B4B4;
+    color: #FFFFFF;
+    cursor: not-allowed;
+
+    &:hover {
+      background-color: #B4B4B4;
+    }
   }
 }
