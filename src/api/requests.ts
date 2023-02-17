@@ -10,9 +10,8 @@ export function request(url: string): Promise<UsersResponse> {
 
 export async function getUsers(
   pageNumber: number,
-  countOfUsers: number,
 ): Promise<UsersResponse> {
-  const url = `/users?page=${pageNumber}&count=${countOfUsers}`;
+  const url = `/users?page=${pageNumber}&count=6`;
   const response = await request(url);
 
   return response;

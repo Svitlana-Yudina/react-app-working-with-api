@@ -1,22 +1,30 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import { getUsers } from '../../api/requests';
-import { User } from '../../types/types';
+import { UsersInfo } from '../../types/types';
 import { UserCard } from '../UserCard';
 import './UserList.scss';
 
+const initUser = {
+  users: [],
+  totalPages: 0,
+  totalUsers: 0,
+};
+
 export const UserList: React.FC = () => {
-  const [users, setUsers] = useState<User[]>([]);
+  const [usersInfo, setUsersInfo] = useState<UsersInfo>(initUser);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [pageCount, setPageCount] = useState(1);
 
-  // const testArr = [1, 2, 3, 4, 5, 6];
-
-  const loadUsers = async(page: number, count: number) => {
+  const loadUsers = async(page: number) => {
     try {
-      const usersFromServer = await getUsers(page, count);
+      const usersFromServer = await getUsers(page);
 
-      setUsers(usersFromServer.users);
-      console.log(users);
+      setUsersInfo({
+        users: usersFromServer.users,
+        totalPages: usersFromServer['total_pages'],
+        totalUsers: usersFromServer['total_users'],
+      });
       setIsLoaded(true);
     } catch (err) {
       throw new Error(`${err}`);
@@ -24,11 +32,12 @@ export const UserList: React.FC = () => {
   };
 
   useEffect(() => {
-    loadUsers(2, 6);
+    loadUsers(pageCount);
   }, []);
 
-  console.log(users);
-  console.log(isLoaded);
+  useEffect(() => {
+    loadUsers(pageCount);
+  }, [pageCount]);
 
   return (
     <div className="userList">
@@ -37,16 +46,25 @@ export const UserList: React.FC = () => {
       </h2>
       {isLoaded && (
         <div className="userList__content">
-        {users.map(user => (
+        {usersInfo?.users.map(user => (
           <div className="userList__wraper" key={user.id}>
             <UserCard user={user}/>
           </div>
         ))}
       </div>
       )}
-      <button type="button" className="button button--big">
-        Show more
-      </button>
+      {pageCount === usersInfo.totalPages || (
+        <button
+          type="button"
+          className="button button--big"
+          onClick={() => {
+            setPageCount(prevCount => prevCount + 1);
+            console.log('click', pageCount);
+          }}
+        >
+          Show more
+        </button>
+      )}
     </div>
   );
 };
