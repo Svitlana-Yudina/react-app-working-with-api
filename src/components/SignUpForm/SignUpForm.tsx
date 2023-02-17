@@ -12,33 +12,40 @@ export const SignUpForm: React.FC = () => {
       </h2>
 
       <form action="/" method="post" className="signUpForm__form">
-        <input
-          type="text"
-          name="name"
-          placeholder="Your name"
-          required
-          className="signUpForm__textData"
-        />
+        <label className="signUpForm__textInputLabel">
+          <input
+            type="text"
+            name="name"
+            placeholder="Your name"
+            required
+            className="signUpForm__textData"
+          />
+          <span className="signUpForm__labelContent"></span>
+        </label>
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          required
-          className="signUpForm__textData"
-        />
+        <label className="signUpForm__textInputLabel">
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            required
+            className="signUpForm__textData"
+          />
+          <span className="signUpForm__labelContent"></span>
+        </label>
 
-        <input
-          type="tel"
-          name="phone"
-          pattern="^\+38\s[\(]\d{3}[\)]\s\d{3}[\-]\d{2}[\-]\d{2}"
-          placeholder="Phone"
-          required
-          className="signUpForm__textData"
-          id="phone"
-        />
-        <label htmlFor="phone" className="signUpForm__textInputLabel">
-          {'+38 (XXX) XXX - XX - XX'}
+        <label className="signUpForm__textInputLabel">
+          <input
+            type="tel"
+            name="phone"
+            pattern="^\+38\s[\(]\d{3}[\)]\s\d{3}[\-]\d{2}[\-]\d{2}"
+            placeholder="Phone"
+            required
+            className="signUpForm__textData"
+          />
+          <span className="signUpForm__labelContent">
+            {'+38 (XXX) XXX - XX - XX'}
+          </span>
         </label>
 
         <p className="signUpForm__radioTitle">Select your position</p>
@@ -103,7 +110,11 @@ export const SignUpForm: React.FC = () => {
           </label>
         </div>
 
-        <input type="file" name="photo" className="signUpForm__fileInput"/>
+        <label className="signUpForm__fileInputLabel">
+          <div className="fileName">Upload your photo</div>
+          <button type="button" className="fileButton">Upload</button>
+          <input type="file" name="photo" className="signUpForm__fileInput"/>
+        </label>
 
         <button
           type="submit"
