@@ -22,29 +22,42 @@
     border-radius: 50%;
   }
 
-  &__text {
-    height: 26px;
+  &__toolTip {
     position: relative;
 
-    overflow: hidden; // All text wich beyond element will be hidden
-    text-overflow: ellipsis; // All hidden overflow text will be replaced by '...'
-                              // it doesn't work without overflow: hidden and white-space: nowrap
     &::after {
       padding: 3px 16px;
-      display: none;
+      display: block;
       content: attr(data-title);
       position: absolute;
+      z-index: 1;
       text-align: center;
-      top: 0;
-      left: 0;
+      top: 130%;
+      left:auto;
       width: max-content;
       color: #FFFFFF;
       background: rgba(0, 0, 0, 0.87);
       border-radius: 4px;
     }
 
-    &:hover::after{
-      display: block;
+    &--right {
+      &::after {
+        right: 0;
+      }
     }
+  }
+
+  .textLink {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  &__text {
+    height: 26px;
+
+    overflow: hidden; // All text wich beyond element will be hidden
+    text-overflow: ellipsis; // All hidden overflow text will be replaced by '...'
+                              // it doesn't work without overflow: hidden and white-space: nowrap
   }
 }
