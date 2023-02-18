@@ -27,14 +27,16 @@
 
     &::after {
       padding: 3px 16px;
-      display: block;
       content: attr(data-title);
+      display: block;
+      width: max-content;
+
       position: absolute;
-      z-index: 1;
-      text-align: center;
       top: 130%;
       left:auto;
-      width: max-content;
+      z-index: 1;
+      
+      text-align: center;
       color: #FFFFFF;
       background: rgba(0, 0, 0, 0.87);
       border-radius: 4px;
