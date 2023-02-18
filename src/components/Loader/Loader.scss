@@ -1,0 +1,22 @@
+@keyframes loading {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loader {
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+
+  &__content {
+    width: 48px;
+    height: 48px;
+    background-image: url('../../images/Preloader.svg');
+    animation: loading 1s infinite linear ;
+  }
+}
+

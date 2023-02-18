@@ -1,7 +1,7 @@
-/* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import { getUsersByPage } from '../../api/requests';
 import { UsersInfo } from '../../types/types';
+import { Loader } from '../Loader';
 import { UserCard } from '../UserCard';
 import './UserList.scss';
 
@@ -18,6 +18,8 @@ export const UserList: React.FC = () => {
 
   const loadUsers = async(page: number) => {
     try {
+      setIsLoaded(false);
+
       const usersFromServer = await getUsersByPage(page);
 
       setUsersInfo((prevInfo) => {
@@ -49,22 +51,27 @@ export const UserList: React.FC = () => {
   return (
     <div className="userList">
       <h2 className="userList__title">Working with GET request</h2>
-      {isLoaded && (
+
+      {usersInfo.users.length > 0 && (
         <div className="userList__content">
-          {usersInfo?.users.map((user) => (
+          {usersInfo.users.map((user) => (
             <div className="userList__wraper" key={user.id}>
               <UserCard user={user} />
             </div>
           ))}
         </div>
       )}
+
+      {!isLoaded && (
+        <Loader />
+      )}
+
       {pageCount === usersInfo.totalPages || (
         <button
           type="button"
           className="button button--big"
           onClick={() => {
             setPageCount((prevCount) => prevCount + 1);
-            console.log(usersInfo.users);
           }}
         >
           Show more

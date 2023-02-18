@@ -1,17 +1,29 @@
 import { UsersResponse } from '../types/types';
 
 const apiUrl = `https://frontend-test-assignment-api.abz.agency/api/v1`;
-// /users?page=1&count=5
 
-export function request(url: string): Promise<UsersResponse> {
-  return fetch(apiUrl + url).then((response) => response.json());
+// returns a promise resolved after a given delay
+export function wait(delay: number) {
+  return new Promise(resolve => {
+    setTimeout(resolve, delay);
+  });
+}
+
+export function request<T>(url: string): Promise<T> {
+  // I use the wait function to see the loader))
+  return wait(300)
+    .then(() => fetch(apiUrl + url))
+    .then((response) => response.json())
+    .catch((err) => {
+      throw new Error(`${err}`);
+    });
 }
 
 export async function getUsersByPage(
   pageNumber: number,
 ): Promise<UsersResponse> {
   const url = `/users?page=${pageNumber}&count=6`;
-  const response = await request(url);
+  const response = await request<UsersResponse>(url);
 
   return response;
 }
