@@ -89,6 +89,11 @@
     line-height: 14px;
   }
 
+  &__radioGroup {
+    padding: 0;
+    border: none;
+  }
+
   &__radioTitle {
     margin-bottom: 11px;
   }
@@ -96,7 +101,7 @@
   &__radioContainer {
     margin-bottom: 7px;
 
-    &:nth-child(8) {
+    &:last-child {
       margin-bottom: 47px;
     }
   }

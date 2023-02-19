@@ -1,9 +1,29 @@
 /* eslint-disable no-shadow */
-import React, { useCallback } from 'react';
-// import { useForm } from 'react-hook-form';
+import React, { useCallback, useEffect, useState } from 'react';
+import { getPositions } from '../../api/requests';
+import { PositionResponse } from '../../types/positionTypes';
 import './SignUpForm.scss';
 
 export const SignUpForm: React.FC = () => {
+  const [positions, setPositions] = useState<PositionResponse>({
+    success: true,
+    positions: [],
+  });
+
+  const loadPositions = useCallback(async() => {
+    try {
+      const positionsFromServer = await getPositions();
+
+      setPositions(positionsFromServer);
+    } catch (err) {
+      throw new Error(`${err}`);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadPositions();
+  }, []);
+
   const handleTextInputChange = useCallback((
     event: React.ChangeEvent<HTMLInputElement>,
     inputId: string,
@@ -29,10 +49,6 @@ export const SignUpForm: React.FC = () => {
         className="signUpForm__form"
         onSubmit={(event) => {
           event.preventDefault();
-
-          const label = document.getElementById('dataPhone');
-
-          label?.classList.add('signUpForm__textInputLabel--error');
         }}
       >
         <label
@@ -94,67 +110,30 @@ export const SignUpForm: React.FC = () => {
           </span>
         </label>
 
-        <p className="signUpForm__radioTitle">Select your position</p>
+        <fieldset className="signUpForm__radioGroup">
+          <legend className="signUpForm__radioTitle">
+            Select your position
+          </legend>
+          {positions.positions.map(position => (
+            <div className="signUpForm__radioContainer" key={position.id}>
+              <input
+                type="radio"
+                name="role"
+                value={position.id}
+                className="signUpForm__radioData"
+                required
+                id={String(position.id)}
+              />
 
-        <div className="signUpForm__radioContainer">
-          <input
-            type="radio"
-            name="role"
-            value="Frontend developer"
-            className="signUpForm__radioData"
-            required
-            id="frontend"
-          />
-
-          <label htmlFor="frontend" className="signUpForm__radioLable">
-            Frontend developer
-          </label>
-        </div>
-
-        <div className="signUpForm__radioContainer">
-          <input
-            type="radio"
-            name="role"
-            value="Backend developer"
-            className="signUpForm__radioData"
-            required
-            id="backend"
-          />
-
-          <label htmlFor="backend" className="signUpForm__radioLable">
-            Backend developer
-          </label>
-        </div>
-
-        <div className="signUpForm__radioContainer">
-          <input
-            type="radio"
-            name="role"
-            value="Designer"
-            className="signUpForm__radioData"
-            required
-            id="designer"
-          />
-
-          <label htmlFor="designer" className="signUpForm__radioLable">
-            Designer
-          </label>
-        </div>
-
-        <div className="signUpForm__radioContainer">
-          <input
-            type="radio"
-            name="role"
-            value="QA"
-            className="signUpForm__radioData"
-            required
-            id="QA"
-          />
-
-          <label htmlFor="QA" className="signUpForm__radioLable">
-          QA
-          </label>
-        </div>
+              <label
+                htmlFor={String(position.id)}
+                className="signUpForm__radioLable"
+              >
+                {position.name}
+              </label>
+            </div>
+          ))}
+        </fieldset>
 
         <label className="signUpForm__fileInputLabel">
           <div className="fileName">Upload your photo</div>

@@ -1,10 +1,11 @@
-import { UsersResponse } from '../types/types';
+import { PositionResponse } from '../types/positionTypes';
+import { UsersResponse } from '../types/userTypes';
 
 const apiUrl = `https://frontend-test-assignment-api.abz.agency/api/v1`;
 
 // returns a promise resolved after a given delay
 export function wait(delay: number) {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     setTimeout(resolve, delay);
   });
 }
@@ -24,6 +25,13 @@ export async function getUsersByPage(
 ): Promise<UsersResponse> {
   const url = `/users?page=${pageNumber}&count=6`;
   const response = await request<UsersResponse>(url);
+
+  return response;
+}
+
+export async function getPositions(): Promise<PositionResponse> {
+  const url = `/positions`;
+  const response = await request<PositionResponse>(url);
 
   return response;
 }

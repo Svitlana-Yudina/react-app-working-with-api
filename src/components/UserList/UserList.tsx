@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getUsersByPage } from '../../api/requests';
-import { UsersInfo } from '../../types/types';
+import { UsersInfo } from '../../types/userTypes';
 import { Loader } from '../Loader';
 import { UserCard } from '../UserCard';
 import './UserList.scss';
@@ -62,9 +62,7 @@ export const UserList: React.FC = () => {
         </div>
       )}
 
-      {!isLoaded && (
-        <Loader />
-      )}
+      {!isLoaded && <Loader />}
 
       {pageCount === usersInfo.totalPages || (
         <button

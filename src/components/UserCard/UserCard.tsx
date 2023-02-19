@@ -1,22 +1,15 @@
 /* eslint-disable no-console */
 /* eslint-disable no-shadow */
 import React, { useCallback, useMemo } from 'react';
-import { User } from '../../types/types';
+import { User } from '../../types/userTypes';
 import './UserCard.scss';
 
 type Props = {
-  user: User,
+  user: User;
 };
 
 export const UserCard: React.FC<Props> = ({ user }) => {
-  const {
-    id,
-    name,
-    email,
-    phone,
-    position,
-    photo,
-  } = user;
+  const { id, name, email, phone, position, photo } = user;
 
   const phoneToView = useMemo(() => {
     let newPhone = '';
@@ -80,9 +73,7 @@ export const UserCard: React.FC<Props> = ({ user }) => {
           handleMouseOut(`${id}/${name}`);
         }}
       >
-        <p className="userCard__text">
-          {name}
-        </p>
+        <p className="userCard__text">{name}</p>
       </span>
 
       <div className="userCard__description">
@@ -96,9 +87,7 @@ export const UserCard: React.FC<Props> = ({ user }) => {
             handleMouseOut(`${id}/${position}`);
           }}
         >
-          <p className="userCard__text">
-            {position}
-          </p>
+          <p className="userCard__text">{position}</p>
         </span>
 
         <span
