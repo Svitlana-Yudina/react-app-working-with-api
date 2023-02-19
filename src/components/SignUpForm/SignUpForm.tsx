@@ -1,9 +1,21 @@
-import React from 'react';
+/* eslint-disable no-shadow */
+import React, { useCallback } from 'react';
 // import { useForm } from 'react-hook-form';
 import './SignUpForm.scss';
 
 export const SignUpForm: React.FC = () => {
-  // const { register } = useForm();
+  const handleTextInputChange = useCallback((
+    event: React.ChangeEvent<HTMLInputElement>,
+    inputId: string,
+  ) => {
+    const label = document.getElementById(inputId);
+
+    if (event.target.value !== '') {
+      label?.classList.add('signUpForm__textInputLabel--filled');
+    } else {
+      label?.classList.remove('signUpForm__textInputLabel--filled');
+    }
+  }, []);
 
   return (
     <div className="signUpForm">
@@ -11,39 +23,73 @@ export const SignUpForm: React.FC = () => {
         Working with POST request
       </h2>
 
-      <form action="/" method="post" className="signUpForm__form">
-        <label className="signUpForm__textInputLabel">
+      <form
+        action="/"
+        method="post"
+        className="signUpForm__form"
+        onSubmit={(event) => {
+          event.preventDefault();
+
+          const label = document.getElementById('dataPhone');
+
+          label?.classList.add('signUpForm__textInputLabel--error');
+        }}
+      >
+        <label
+          id="dataName"
+          className="signUpForm__textInputLabel"
+          data-placeholder="Your name"
+        >
           <input
+            autoComplete="off"
             type="text"
             name="name"
-            placeholder="Your name"
-            required
             className="signUpForm__textData"
+            onChange={(event) => {
+              handleTextInputChange(event, 'dataName');
+            }}
           />
-          <span className="signUpForm__labelContent"></span>
+          <span className="signUpForm__helperText">
+            Example
+          </span>
         </label>
 
-        <label className="signUpForm__textInputLabel">
+        <label
+          id="dataEmail"
+          className="signUpForm__textInputLabel"
+          data-placeholder="Email"
+        >
           <input
+            autoComplete="off"
             type="email"
             name="email"
-            placeholder="Email"
-            required
             className="signUpForm__textData"
+            onChange={(event) => {
+              handleTextInputChange(event, 'dataEmail');
+            }}
           />
-          <span className="signUpForm__labelContent"></span>
+          <span className="signUpForm__helperText">
+            example@gmail.com
+          </span>
         </label>
 
-        <label className="signUpForm__textInputLabel">
+        <label
+          id="dataPhone"
+          className="
+          signUpForm__textInputLabel"
+          data-placeholder="Phone"
+        >
           <input
+            autoComplete="off"
             type="tel"
             name="phone"
-            pattern="^\+38\s[\(]\d{3}[\)]\s\d{3}[\-]\d{2}[\-]\d{2}"
-            placeholder="Phone"
-            required
+            // pattern="^\+38\s[\(]\d{3}[\)]\s\d{3}[\-]\d{2}[\-]\d{2}"
             className="signUpForm__textData"
+            onChange={(event) => {
+              handleTextInputChange(event, 'dataPhone');
+            }}
           />
-          <span className="signUpForm__labelContent">
+          <span className="signUpForm__helperText">
             {'+38 (XXX) XXX - XX - XX'}
           </span>
         </label>

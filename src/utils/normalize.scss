@@ -4,6 +4,12 @@
   font-style: normal;
   font-weight: 400;
 }
+@font-face {
+  font-family: 'Nunito';
+  src: url('../fonts/Nunito/Nunito-Medium.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 500;
+}
 
 html {
   font-family: 'Nunito', sans-serif;
