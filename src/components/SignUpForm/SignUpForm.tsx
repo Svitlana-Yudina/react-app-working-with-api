@@ -3,6 +3,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-shadow */
 import React, { useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
 import { getPositions } from '../../api/requests';
 import { PositionResponse } from '../../types/positionTypes';
@@ -34,6 +35,8 @@ export const SignUpForm: React.FC = () => {
     criteriaMode: 'all',
   });
   const onSubmit: SubmitHandler<Inputs> = (data: Inputs) => console.log(data);
+  const { isValid } = methods.formState;
+  const isDisabled = !isValid;
 
   const [positions, setPositions] = useState<PositionResponse>({
     success: true,
@@ -121,13 +124,17 @@ export const SignUpForm: React.FC = () => {
             <button type="button" className="fileButton">Upload</button>
             <input
               type="file"
-              {...methods.register('photo')}
+              {...methods.register('photo', { required: true })}
               className="signUpForm__fileInput"/>
           </label>
 
           <button
             type="submit"
-            className="signUpForm__button button button--disabled"
+            className={classNames(
+              'signUpForm__button button',
+              { 'button--disabled': isDisabled },
+            )}
+            disabled={isDisabled}
           >
             Sign up
           </button>
