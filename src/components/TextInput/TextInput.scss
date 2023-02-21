@@ -1,0 +1,75 @@
+@import '../../utils/variables';
+
+.textInput {
+  &__textData {
+    padding: 14px 16px;
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+
+    font-size: 16px;
+    line-height: 26px;
+    
+    border: 1px solid #D0CFCF;
+    border-radius: 4px;
+    background-color: $backgroundColor;
+    outline: none;
+    color: rgba(0, 0, 0, 0.87);
+
+    &:focus {
+      border-color: #7E7E7E;
+    }
+  }
+
+  &__textInputLabel {
+    margin-bottom: 36px;
+    position: relative;
+
+    color: #7E7E7E;
+
+    &:nth-child(3) {
+      margin-bottom: 25px;
+    }
+
+    // &::after {
+    //   content: attr(data-placeholder);
+    //   position: absolute;
+    //   top: 14px;
+    //   left: 16px;
+
+    //   background-color: transparent;
+    //   cursor: text;
+    // }
+
+    &--filled {
+      &::after {
+        padding: 0 4px;
+        content: attr(data-placeholder);
+        width: max-content;
+        position: absolute;
+        top: -7px;
+        left: 12px;
+
+        font-size: 12px;
+        line-height: 14px;
+        font-weight: 500;
+        background-color: $backgroundColor;
+      }
+    }
+
+    &--error {
+      color: #CB3D40;
+      & > .textInput__textData {
+        border-color: #CB3D40;
+        border-width: 2px;
+      }
+    }
+  }
+
+  &__helperText {
+    position: relative;
+    left: 16px;
+    font-size: 12px;
+    line-height: 14px;
+  }
+}
