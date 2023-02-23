@@ -65,15 +65,15 @@ export const SignUpForm: React.FC = () => {
     }
   }, []);
 
-  function readImage(currentfile: File): Promise<HTMLImageElement> {
-    return new Promise((resolve, reject) => {
-      const image = new Image();
+  // function readImage(currentfile: File): Promise<HTMLImageElement> {
+  //   return new Promise((resolve, reject) => {
+  //     const image = new Image();
 
-      image.src = URL.createObjectURL(currentfile);
-      image.onload = () => resolve(image);
-      image.onerror = err => reject(err);
-    });
-  }
+  //     image.src = URL.createObjectURL(currentfile);
+  //     image.onload = () => resolve(image);
+  //     image.onerror = err => reject(err);
+  //   });
+  // }
 
   useEffect(() => {
     loadPositions();
