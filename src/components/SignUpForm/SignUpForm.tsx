@@ -15,7 +15,7 @@ type Inputs = {
   email: string
   phone: string
   role: number,
-  photo: File,
+  photo: FileList,
 };
 
 export const SignUpForm: React.FC = () => {
@@ -36,13 +36,14 @@ export const SignUpForm: React.FC = () => {
   });
   const onSubmit: SubmitHandler<Inputs> = (data: Inputs) => console.log(data);
   const { isValid } = methods.formState;
-  const isDisabled = !isValid;
+  const { formState: { errors } } = methods;
 
   const [positions, setPositions] = useState<PositionResponse>({
     success: true,
     positions: [],
   });
   const [token, setToken] = useState('');
+  const [file, setFile] = useState<File | null>(null);
 
   const loadPositions = useCallback(async() => {
     try {
@@ -63,6 +64,16 @@ export const SignUpForm: React.FC = () => {
       throw new Error(`${err}`);
     }
   }, []);
+
+  function readImage(currentfile: File): Promise<HTMLImageElement> {
+    return new Promise((resolve, reject) => {
+      const image = new Image();
+
+      image.src = URL.createObjectURL(currentfile);
+      image.onload = () => resolve(image);
+      image.onerror = err => reject(err);
+    });
+  }
 
   useEffect(() => {
     loadPositions();
@@ -132,21 +143,67 @@ export const SignUpForm: React.FC = () => {
           </fieldset>
 
           <label className="signUpForm__fileInputLabel">
-            <div className="fileName">Upload your photo</div>
-            <button type="button" className="fileButton">Upload</button>
             <input
               type="file"
-              {...methods.register('photo', { required: true })}
-              className="signUpForm__fileInput"/>
+              accept=".jpg, .jpeg"
+              {...methods.register('photo', {
+                required: true,
+                onChange: (event) => {
+                  if (event.target.files) {
+                    console.log(event.target.files);
+                    console.log(event.target.files[0]);
+                    setFile(event.target.files[0]);
+                  }
+                },
+                // validate: {
+                //   size: (value) => {
+                //     console.log('errors', errors);
+                //     console.log('isValid', isValid);
+                //     console.log('value', value);
+                //     console.log('value.size', value[0].size);
+                //     console.log('value.size < 5 * (1024 ** 2)', value[0].size < 5 * (1024 ** 2));
+
+                //     return value[0].size < 5 * (1024 ** 2);
+                //   },
+                //   imgType: (value) => {
+                //     return value.type === 'image/jpeg' || value.type === 'image/jpg';
+                //   },
+                //   imgWidthAndHeight: async(value) => {
+                //     if (value) {
+                //       const newImg = await readImage(value);
+
+                //       return newImg.width > 70 && newImg.height > 70;
+                //     } else {
+                //       return false;
+                //     }
+                //   },
+                // },
+              })}
+              className="signUpForm__fileInput"
+            />
+            {!file?.name
+              ? (
+                <p className="fileName">
+                  Upload your photo
+                </p>
+              )
+              : (
+                <p className="fileName fileName__filled">
+                  {`${file?.name}`}
+                </p>
+              )
+            }
+
+            <div className="fileButton">Upload</div>
           </label>
 
           <button
             type="submit"
             className={classNames(
               'signUpForm__button button',
-              { 'button--disabled': isDisabled },
+              { 'button--disabled': !isValid },
             )}
-            disabled={isDisabled}
+            disabled={!isValid}
           >
             Sign up
           </button>

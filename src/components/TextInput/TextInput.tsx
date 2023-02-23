@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-shadow */
 import React, { useCallback, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
@@ -60,6 +61,9 @@ export const TextInput: React.FC<Props> = ({
               handleTextInputChange();
             },
             onBlur() {
+              console.log(errors);
+              console.log(errors[name]);
+
               if (errors[name]) {
                 handleTextInputBlur();
               }
@@ -78,12 +82,17 @@ export const TextInput: React.FC<Props> = ({
           errors={ errors }
           name={name}
           render={({ messages }) => {
+            console.log('m&O', messages && !isOnChange);
+            console.log('o', !isOnChange);
+            console.log('m', messages);
+            console.log('err', errors);
+
             return (
               (messages && !isOnChange)
               && Object.entries(messages).map(([type, message]) => (
-                <span key={type} className="textInput__helperText">
+                <p key={type} className="textInput__helperText">
                   {message}
-                </span>
+                </p>
               ))
             );
           }
