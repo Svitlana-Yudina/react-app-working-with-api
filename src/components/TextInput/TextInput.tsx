@@ -4,17 +4,23 @@ import { useFormContext } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import './TextInput.scss';
 
-type Props = {
-  inputId: string,
+type InputCheck = {
   pattern: RegExp,
+  minLength: number,
+  maxLength: number,
+};
+
+type Props = {
+  labelId: string,
+  check: InputCheck,
   helperText: string,
   placeholder: string,
   name: string,
 };
 
 export const TextInput: React.FC<Props> = ({
-  inputId,
-  pattern,
+  labelId,
+  check,
   helperText,
   placeholder,
   name,
@@ -23,7 +29,7 @@ export const TextInput: React.FC<Props> = ({
   const { register, formState: { errors } } = useFormContext();
 
   const handleTextInputChange = useCallback(() => {
-    const label = document.getElementById(inputId);
+    const label = document.getElementById(labelId);
 
     setIsOnChange(true);
     label?.classList.remove('textInput__textInputLabel--error');
@@ -31,7 +37,7 @@ export const TextInput: React.FC<Props> = ({
   }, []);
 
   const handleTextInputBlur = useCallback(() => {
-    const label = document.getElementById(inputId);
+    const label = document.getElementById(labelId);
 
     setIsOnChange(false);
     label?.classList.add('textInput__textInputLabel--error');
@@ -40,7 +46,7 @@ export const TextInput: React.FC<Props> = ({
   return (
     <div className="textInput">
       <label
-        id={inputId}
+        id={labelId}
         className="textInput__textInputLabel"
         data-placeholder={placeholder}
       >
@@ -53,8 +59,16 @@ export const TextInput: React.FC<Props> = ({
               message: 'This field is required!',
             },
             pattern: {
-              value: pattern,
+              value: check.pattern,
               message: `Please Enter ${placeholder} in format '${helperText}'`,
+            },
+            minLength: {
+              value: check.minLength,
+              message: `${placeholder} should contains min ${check.minLength} characters`,
+            },
+            maxLength: {
+              value: check.maxLength,
+              message: `${placeholder} should contains max ${check.maxLength} characters`,
             },
             onChange() {
               handleTextInputChange();
@@ -81,9 +95,9 @@ export const TextInput: React.FC<Props> = ({
             return (
               (messages && !isOnChange)
               && Object.entries(messages).map(([type, message]) => (
-                <span key={type} className="textInput__helperText">
+                <p key={type} className="textInput__helperText">
                   {message}
-                </span>
+                </p>
               ))
             );
           }

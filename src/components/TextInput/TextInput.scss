@@ -31,16 +31,6 @@
       margin-bottom: 25px;
     }
 
-    // &::after {
-    //   content: attr(data-placeholder);
-    //   position: absolute;
-    //   top: 14px;
-    //   left: 16px;
-
-    //   background-color: transparent;
-    //   cursor: text;
-    // }
-
     &--filled {
       &::after {
         padding: 0 4px;

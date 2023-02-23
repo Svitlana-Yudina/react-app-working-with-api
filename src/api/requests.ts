@@ -1,5 +1,9 @@
+import { Token } from '../types/otherTypes';
 import { PositionResponse } from '../types/positionTypes';
-import { UsersResponse } from '../types/userTypes';
+import {
+  PostUserResponseFail,
+  UsersResponse,
+} from '../types/userTypes';
 
 const apiUrl = `https://frontend-test-assignment-api.abz.agency/api/v1`;
 
@@ -10,10 +14,16 @@ export function wait(delay: number) {
   });
 }
 
-export function request<T>(url: string): Promise<T> {
+export function request<T>(url: string, data?: RequestInit): Promise<T> {
   // I use the wait function to see the loader))
   return wait(300)
-    .then(() => fetch(apiUrl + url))
+    .then(() => {
+      if (data) {
+        return fetch(apiUrl + url, data);
+      } else {
+        return fetch(apiUrl + url);
+      }
+    })
     .then((response) => response.json())
     .catch((err) => {
       throw new Error(`${err}`);
@@ -32,6 +42,26 @@ export async function getUsersByPage(
 export async function getPositions(): Promise<PositionResponse> {
   const url = `/positions`;
   const response = await request<PositionResponse>(url);
+
+  return response;
+}
+
+export async function getToken(): Promise<Token> {
+  const url = `/token`;
+  const response = await request<Token>(url);
+
+  return response;
+}
+
+export async function addUser(
+  token: string,
+  data: BodyInit,
+): Promise<PostUserResponseFail> {
+  const url = '/users';
+  const options = { method: 'POST',
+    body: data,
+    headers: { 'Token': token } }
+  const response = await request<PostUserResponseFail>(url, options);
 
   return response;
 }
