@@ -178,23 +178,23 @@ export const SignUpForm: React.FC = () => {
                     setFile(event.target.files[0]);
                   }
                 },
-                validate: {
-                  size: (value) => {
-                    return value[0].size < 5 * (1024 ** 2);
-                  },
-                  imgType: (value) => {
-                    return value[0].type === 'image/jpeg' || value[0].type === 'image/jpg';
-                  },
-                  imgWidthAndHeight: async(value) => {
-                    if (value[0]) {
-                      const newImg = await readImage(value[0]);
+                // validate: {
+                //   size: (value) => {
+                //     return value[0].size < 5 * (1024 ** 2);
+                //   },
+                //   imgType: (value) => {
+                //     return value[0].type === 'image/jpeg' || value[0].type === 'image/jpg';
+                //   },
+                //   imgWidthAndHeight: async(value) => {
+                //     if (value[0]) {
+                //       const newImg = await readImage(value[0]);
 
-                      return newImg.width > 70 && newImg.height > 70;
-                    } else {
-                      return false;
-                    }
-                  },
-                },
+                //       return newImg.width > 70 && newImg.height > 70;
+                //     } else {
+                //       return false;
+                //     }
+                //   },
+                // },
               })}
               className="signUpForm__fileInput"
             />
