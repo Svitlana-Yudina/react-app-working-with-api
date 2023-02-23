@@ -5,7 +5,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
-import { getPositions } from '../../api/requests';
+import { getPositions, getToken } from '../../api/requests';
 import { PositionResponse } from '../../types/positionTypes';
 import { TextInput } from '../TextInput';
 import './SignUpForm.scss';
@@ -42,6 +42,7 @@ export const SignUpForm: React.FC = () => {
     success: true,
     positions: [],
   });
+  const [token, setToken] = useState('');
 
   const loadPositions = useCallback(async() => {
     try {
@@ -53,8 +54,19 @@ export const SignUpForm: React.FC = () => {
     }
   }, []);
 
+  const loadToken = useCallback(async() => {
+    try {
+      const tokenFromServer = await getToken();
+
+      setToken(tokenFromServer.token);
+    } catch (err) {
+      throw new Error(`${err}`);
+    }
+  }, []);
+
   useEffect(() => {
     loadPositions();
+    loadToken();
   }, []);
 
   return (
