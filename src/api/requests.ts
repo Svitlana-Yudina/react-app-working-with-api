@@ -2,6 +2,7 @@ import { Token } from '../types/otherTypes';
 import { PositionResponse } from '../types/positionTypes';
 import {
   PostUserResponseFail,
+  PostUserResponseOK,
   UsersResponse,
 } from '../types/userTypes';
 
@@ -56,12 +57,15 @@ export async function getToken(): Promise<Token> {
 export async function addUser(
   token: string,
   data: BodyInit,
-): Promise<PostUserResponseFail> {
+): Promise<PostUserResponseFail | PostUserResponseOK> {
   const url = '/users';
   const options = { method: 'POST',
     body: data,
     headers: { 'Token': token } }
-  const response = await request<PostUserResponseFail>(url, options);
+  const response = await request<PostUserResponseFail | PostUserResponseOK>(
+    url,
+    options,
+  );
 
   return response;
 }

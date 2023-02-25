@@ -1,52 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { getUsersByPage } from '../../api/requests';
+import React from 'react';
 import { UsersInfo } from '../../types/userTypes';
 import { Loader } from '../Loader';
 import { UserCard } from '../UserCard';
 import './UserList.scss';
 
-const initUser = {
-  users: [],
-  totalPages: 0,
-  totalUsers: 0,
+type Props = {
+  toolsToLoad: {
+    usersInfo: UsersInfo;
+    isLoaded: boolean;
+    pageCount: number;
+    setPageCount: React.Dispatch<React.SetStateAction<number>>;
+  }
 };
 
-export const UserList: React.FC = () => {
-  const [usersInfo, setUsersInfo] = useState<UsersInfo>(initUser);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [pageCount, setPageCount] = useState(1);
-
-  const loadUsers = async(page: number) => {
-    try {
-      setIsLoaded(false);
-
-      const usersFromServer = await getUsersByPage(page);
-
-      setUsersInfo((prevInfo) => {
-        if (prevInfo.users.length !== page * 6) {
-          return {
-            users: [...prevInfo.users, ...usersFromServer.users],
-            totalPages: usersFromServer['total_pages'],
-            totalUsers: usersFromServer['total_users'],
-          };
-        }
-
-        return prevInfo;
-      });
-
-      setIsLoaded(true);
-    } catch (err) {
-      throw new Error(`${err}`);
-    }
-  };
-
-  useEffect(() => {
-    loadUsers(pageCount);
-  }, []);
-
-  useEffect(() => {
-    loadUsers(pageCount);
-  }, [pageCount]);
+export const UserList: React.FC<Props> = ({ toolsToLoad }) => {
+  const {
+    usersInfo,
+    isLoaded,
+    pageCount,
+    setPageCount,
+  } = toolsToLoad;
 
   return (
     <div className="userList">

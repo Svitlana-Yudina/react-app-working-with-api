@@ -11,7 +11,13 @@ import './SignUpForm.scss';
 import { Inputs } from '../../types/otherTypes';
 import { FileInput } from '../FileInput';
 
-export const SignUpForm: React.FC = () => {
+type Props = {
+  setPageCount: React.Dispatch<React.SetStateAction<number>>;
+};
+
+export const SignUpForm: React.FC<Props> = React.memo(function SignUpForm(
+  { setPageCount }: Props,
+) {
   const namePattern = new RegExp(/[-0-9A-Za-z]{2,60}/);
   const emailPattern = new RegExp(/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/);
   const phonePattern = new RegExp(/^\+38[\(]\d{3}[\)]\d{3}[\-]\d{2}[\-]\d{2}$/);
@@ -51,7 +57,7 @@ export const SignUpForm: React.FC = () => {
   });
   const [token, setToken] = useState('');
 
-  const onSubmit: SubmitHandler<Inputs> = (data: Inputs) => {
+  const onSubmit: SubmitHandler<Inputs> = async(data: Inputs) => {
     const formData: BodyInit = new FormData();
 
     formData.append('position_id', String(data.position_id));
@@ -60,7 +66,13 @@ export const SignUpForm: React.FC = () => {
     formData.append('phone', data.phone);
     formData.append('photo', data.photo[0]);
 
-    addUser(token, formData);
+    try {
+      const response = await addUser(token, formData);
+    } catch (err) {
+      throw new Error(`${err}`);
+    } finally {
+      setPageCount(1);
+    }
   };
 
   const loadPositions = useCallback(async() => {
@@ -166,4 +178,4 @@ export const SignUpForm: React.FC = () => {
       </FormProvider>
     </div>
   );
-};
+});
