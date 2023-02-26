@@ -13,7 +13,7 @@ import { Inputs } from '../../types/otherTypes';
 import { FileInput } from '../FileInput';
 
 type Props = {
-  setPageCount: React.Dispatch<React.SetStateAction<number>>;
+  setPageCount: React.Dispatch<React.SetStateAction<{count: number}>>;
 };
 
 export const SignUpForm: React.FC<Props> = React.memo(function SignUpForm(
@@ -51,7 +51,7 @@ export const SignUpForm: React.FC<Props> = React.memo(function SignUpForm(
     criteriaMode: 'all',
   });
 
-  const { isValid } = methods.formState;
+  const { isValid, isSubmitSuccessful } = methods.formState;
   const [positions, setPositions] = useState<PositionResponse>({
     success: true,
     positions: [],
@@ -80,10 +80,12 @@ export const SignUpForm: React.FC<Props> = React.memo(function SignUpForm(
 
     try {
       const response = await addUser(token, formData);
+
+      if (response.success) {
+        setPageCount({ count: 1 });
+      }
     } catch (err) {
       throw new Error(`${err}`);
-    } finally {
-      setPageCount(1);
     }
   };
 

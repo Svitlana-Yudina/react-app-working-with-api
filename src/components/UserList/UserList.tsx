@@ -8,8 +8,8 @@ type Props = {
   toolsToLoad: {
     usersInfo: UsersInfo;
     isLoaded: boolean;
-    pageCount: number;
-    setPageCount: React.Dispatch<React.SetStateAction<number>>;
+    pageCount: {count: number};
+    setPageCount: React.Dispatch<React.SetStateAction<{count: number}>>;
   }
 };
 
@@ -37,12 +37,12 @@ export const UserList: React.FC<Props> = ({ toolsToLoad }) => {
 
       {!isLoaded && <Loader />}
 
-      {pageCount === usersInfo.totalPages || (
+      {pageCount.count === usersInfo.totalPages || (
         <button
           type="button"
           className="button button--big"
           onClick={() => {
-            setPageCount((prevCount) => prevCount + 1);
+            setPageCount((prevCount) => ({ count: prevCount.count + 1 }));
           }}
         >
           Show more

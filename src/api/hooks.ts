@@ -11,17 +11,17 @@ const initUser = {
 export const useLoadingUsers = () => {
   const [usersInfo, setUsersInfo] = useState<UsersInfo>(initUser);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [pageCount, setPageCount] = useState(1);
+  const [pageCount, setPageCount] = useState({ count: 1 });
 
   useEffect(() => {
-    const loadUsers = async(page: number) => {
+    const loadUsers = async(page: { count: number }) => {
       setIsLoaded(false);
 
       try {
-        const usersFromServer = await getUsersByPage(page);
+        const usersFromServer = await getUsersByPage(page.count);
 
         setUsersInfo((prevInfo) => {
-          if (prevInfo.users.length < page * 6) {
+          if (prevInfo.users.length < page.count * 6) {
             return {
               users: [...prevInfo.users, ...usersFromServer.users],
               totalPages: usersFromServer['total_pages'],
