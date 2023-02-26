@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-useless-escape */
 /* eslint-disable max-len */
 /* eslint-disable no-shadow */
@@ -85,6 +86,7 @@ export const SignUpForm: React.FC<Props> = React.memo(function SignUpForm(
         setSubmitError('');
         setIsSuccess(true);
       } else {
+        console.log(response);
         setSubmitError(response.message);
         setIsSuccess(false);
       }

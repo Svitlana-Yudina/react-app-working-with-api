@@ -74,6 +74,9 @@ export const FileInput: React.FC = () => {
       }
 
       <div className="fileButton">Upload</div>
+      <p className="signUpForm__helperText">
+        <pre>format: .jpeg/.jpg  |  max size: 5MB  |  min: 70px X 70px</pre>
+      </p>
     </label>
   );
 };
