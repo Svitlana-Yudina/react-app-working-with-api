@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-useless-escape */
 /* eslint-disable max-len */
 /* eslint-disable no-shadow */
@@ -57,13 +58,24 @@ export const SignUpForm: React.FC<Props> = React.memo(function SignUpForm(
   });
   const [token, setToken] = useState('');
 
+  const formatPhoneToSubmit = (phoneNumber: string) => {
+    const regToReplace = new RegExp(/[\)\(-]/, 'g');
+
+    const formatingNumber = phoneNumber.replaceAll(regToReplace, '');
+
+    console.log(formatingNumber);
+
+    return formatingNumber;
+  };
+
   const onSubmit: SubmitHandler<Inputs> = async(data: Inputs) => {
     const formData: BodyInit = new FormData();
+    const phoneToSubmit = formatPhoneToSubmit(data.phone);
 
     formData.append('position_id', String(data.position_id));
     formData.append('name', data.name);
     formData.append('email', data.email);
-    formData.append('phone', data.phone);
+    formData.append('phone', phoneToSubmit);
     formData.append('photo', data.photo[0]);
 
     try {
