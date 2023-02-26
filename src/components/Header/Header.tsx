@@ -7,12 +7,12 @@ export const Header: React.FC = () => {
       <div className="header__content">
         <div className="header__image"></div>
         <div className="header__auth">
-          <button type="button" className="button header__button">
+          <a href="#userList" className="button header__button">
             Users
-          </button>
-          <button type="button" className="button">
+          </a>
+          <a href="#signUpForm" className="button">
             Sign up
-          </button>
+          </a>
         </div>
       </div>
     </div>

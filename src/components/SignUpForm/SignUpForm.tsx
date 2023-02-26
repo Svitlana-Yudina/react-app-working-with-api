@@ -115,7 +115,7 @@ export const SignUpForm: React.FC<Props> = React.memo(function SignUpForm(
   }, []);
 
   return (
-    <div className="signUpForm">
+    <div className="signUpForm" id="signUpForm">
       <h2 className="signUpForm__title">
         Working with POST request
       </h2>

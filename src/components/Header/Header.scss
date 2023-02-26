@@ -40,8 +40,13 @@
 }
 
 .button {
+  display: inline-block;
   width: 100px;
   height: 34px;
+
+  text-decoration: none;
+  text-align: center;
+  line-height: 34px;
 
   background-color: $primaryColor;
   border-radius: 80px;

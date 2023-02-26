@@ -21,12 +21,12 @@ export const Assignment: React.FC = () => {
               of Front-End Development keeps evolving.
             </p>
 
-            <button
-              type="button"
+            <a
+              href="#signUpForm"
               className="button test-article__button"
             >
               Sign up
-            </button>
+            </a>
           </article>
         </div>
       </div>

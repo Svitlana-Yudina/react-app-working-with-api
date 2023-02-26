@@ -22,7 +22,7 @@ export const UserList: React.FC<Props> = ({ toolsToLoad }) => {
   } = toolsToLoad;
 
   return (
-    <div className="userList">
+    <div className="userList" id="userList">
       <h2 className="userList__title">Working with GET request</h2>
 
       {usersInfo.users.length > 0 && (
