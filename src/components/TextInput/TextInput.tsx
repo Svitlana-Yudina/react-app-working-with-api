@@ -16,6 +16,7 @@ type Props = {
   helperText: string,
   placeholder: string,
   name: string,
+  submitErr: React.Dispatch<React.SetStateAction<string>>,
 };
 
 export const TextInput: React.FC<Props> = ({
@@ -24,6 +25,7 @@ export const TextInput: React.FC<Props> = ({
   helperText,
   placeholder,
   name,
+  submitErr,
 }) => {
   const [isOnChange, setIsOnChange] = useState(false);
   const { register, formState: { errors } } = useFormContext();
@@ -32,6 +34,7 @@ export const TextInput: React.FC<Props> = ({
     const label = document.getElementById(labelId);
 
     setIsOnChange(true);
+    submitErr('');
     label?.classList.remove('textInput__textInputLabel--error');
     label?.classList.add('textInput__textInputLabel--filled');
   }, []);

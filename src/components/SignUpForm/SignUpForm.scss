@@ -126,6 +126,7 @@
   }
 
   &__errorText {
+    text-align: center;
     font-size: 12px;
     line-height: 14px;
     color: #CB3D40;
@@ -133,5 +134,20 @@
 
   &__button {
     margin: 0 auto;
+  }
+
+  .success {
+    &__title {
+      margin-bottom: 50px;
+      text-align: center;
+    }
+
+    &__image {
+      margin: 0 auto;
+      width: 328px;
+      height: 290px;
+
+      background-image: url('../../images/success-image.svg');
+    }
   }
 }

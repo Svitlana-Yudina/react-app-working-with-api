@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 /* eslint-disable no-useless-escape */
 /* eslint-disable max-len */
 /* eslint-disable no-shadow */
@@ -51,19 +50,19 @@ export const SignUpForm: React.FC<Props> = React.memo(function SignUpForm(
     criteriaMode: 'all',
   });
 
-  const { isValid, isSubmitSuccessful } = methods.formState;
+  const { isValid } = methods.formState;
   const [positions, setPositions] = useState<PositionResponse>({
     success: true,
     positions: [],
   });
   const [token, setToken] = useState('');
+  const [submitError, setSubmitError] = useState('');
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const formatPhoneToSubmit = (phoneNumber: string) => {
     const regToReplace = new RegExp(/[\)\(-]/, 'g');
 
     const formatingNumber = phoneNumber.replaceAll(regToReplace, '');
-
-    console.log(formatingNumber);
 
     return formatingNumber;
   };
@@ -83,9 +82,14 @@ export const SignUpForm: React.FC<Props> = React.memo(function SignUpForm(
 
       if (response.success) {
         setPageCount({ count: 1 });
+        setSubmitError('');
+        setIsSuccess(true);
+      } else {
+        setSubmitError(response.message);
+        setIsSuccess(false);
       }
     } catch (err) {
-      throw new Error(`${err}`);
+      setSubmitError(`ERROR! ${err}`);
     }
   };
 
@@ -120,76 +124,97 @@ export const SignUpForm: React.FC<Props> = React.memo(function SignUpForm(
         Working with POST request
       </h2>
 
-      <FormProvider {...methods}>
-        <form
-          action="/"
-          method="post"
-          className="signUpForm__form"
-          onSubmit={methods.handleSubmit(onSubmit)}
-        >
-          <TextInput
-            labelId="nameData"
-            check={nameCheck}
-            helperText="example"
-            placeholder="Your Name"
-            name="name"
-          />
+      {isSuccess && !submitError
+        ? (
+          <div className="signUpForm__success success">
+            <h2 className="success__title">
+              User successfully registered
+            </h2>
+            <div className="success__image"></div>
+          </div>
+        )
+        : (
 
-          <TextInput
-            labelId="emailData"
-            check={emailCheck}
-            helperText="example@gmail.com"
-            placeholder="Email"
-            name="email"
-          />
+          <FormProvider {...methods}>
+            <form
+              action="/"
+              method="post"
+              className="signUpForm__form"
+              onSubmit={methods.handleSubmit(onSubmit)}
+            >
+              <TextInput
+                labelId="nameData"
+                check={nameCheck}
+                helperText="example"
+                placeholder="Your Name"
+                name="name"
+                submitErr={setSubmitError}
+              />
 
-          <TextInput
-            labelId="phoneData"
-            check={phoneCheck}
-            helperText="+38 (XXX) XXX - XX - XX"
-            placeholder="Phone"
-            name="phone"
-          />
+              <TextInput
+                labelId="emailData"
+                check={emailCheck}
+                helperText="example@gmail.com"
+                placeholder="Email"
+                name="email"
+                submitErr={setSubmitError}
+              />
 
-          <fieldset className="signUpForm__radioGroup">
-            <legend className="signUpForm__radioTitle">
-              Select your position
-            </legend>
-            {positions.positions.map(position => (
-              <div className="signUpForm__radioContainer" key={position.id}>
-                <input
-                  type="radio"
-                  {...methods.register('position_id', { required: true })}
-                  value={position.id}
-                  className="signUpForm__radioData"
-                  required
-                  id={String(position.id)}
-                />
+              <TextInput
+                labelId="phoneData"
+                check={phoneCheck}
+                helperText="+38 (XXX) XXX - XX - XX"
+                placeholder="Phone"
+                name="phone"
+                submitErr={setSubmitError}
+              />
 
-                <label
-                  htmlFor={String(position.id)}
-                  className="signUpForm__radioLable"
-                >
-                  {position.name}
-                </label>
-              </div>
-            ))}
-          </fieldset>
+              <fieldset className="signUpForm__radioGroup">
+                <legend className="signUpForm__radioTitle">
+                  Select your position
+                </legend>
+                {positions.positions.map(position => (
+                  <div className="signUpForm__radioContainer" key={position.id}>
+                    <input
+                      type="radio"
+                      {...methods.register('position_id', { required: true })}
+                      value={position.id}
+                      className="signUpForm__radioData"
+                      required
+                      id={String(position.id)}
+                    />
 
-          <FileInput />
+                    <label
+                      htmlFor={String(position.id)}
+                      className="signUpForm__radioLable"
+                    >
+                      {position.name}
+                    </label>
+                  </div>
+                ))}
+              </fieldset>
 
-          <button
-            type="submit"
-            className={classNames(
-              'signUpForm__button button',
-              { 'button--disabled': !isValid },
-            )}
-            disabled={!isValid}
-          >
-            Sign up
-          </button>
-        </form>
-      </FormProvider>
+              <FileInput />
+
+              <button
+                type="submit"
+                className={classNames(
+                  'signUpForm__button button',
+                  { 'button--disabled': !isValid },
+                )}
+                disabled={!isValid}
+              >
+                Sign up
+              </button>
+              {submitError
+                && (
+                  <p className="signUpForm__errorText">
+                    {submitError}
+                  </p>
+                )}
+            </form>
+          </FormProvider>
+        )}
     </div>
   );
 });
