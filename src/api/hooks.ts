@@ -20,6 +20,9 @@ export const useLoadingUsers = () => {
       try {
         const usersFromServer = await getUsersByPage(page.count);
 
+        // we should update ALL users (not only add new)
+        // to avoid duplication of old users,
+        // if new ones have allready registered in another browser
         setUsersInfo({
           users: usersFromServer.users,
           totalPages: usersFromServer['total_pages'],

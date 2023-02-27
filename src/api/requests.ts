@@ -34,19 +34,14 @@ export function request<T>(url: string, data?: RequestInit): Promise<T> {
 export async function getUsersByPage(
   pageNumber: number,
 ): Promise<UsersResponse> {
+  // we should update ALL users (not only add new)
+  // to avoid duplication of old users,
+  // if new ones have allready registered in another browser
   const url = `/users?page=1&count=${pageNumber * 6}`;
   const response = await request<UsersResponse>(url);
 
   return response;
 }
-// export async function getUsersByPage(
-//   pageNumber: number,
-// ): Promise<UsersResponse> {
-//   const url = `/users?page=${pageNumber}&count=6`;
-//   const response = await request<UsersResponse>(url);
-
-//   return response;
-// }
 
 export async function getPositions(): Promise<PositionResponse> {
   const url = `/positions`;
