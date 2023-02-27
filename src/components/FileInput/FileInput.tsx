@@ -77,7 +77,7 @@ export const FileInput: React.FC = () => {
       {!errors['photo']
       && (
         <p className="signUpForm__helperText">
-          <pre>format: .jpeg/.jpg  |  max size: 5MB  |  min: 70px X 70px</pre>
+          format: .jpeg/.jpg  |  max size: 5MB  |  min: 70px X 70px
         </p>
       )}
 
