@@ -1,9 +1,11 @@
 /* eslint-disable no-shadow */
+// import { ErrorMessage } from '@hookform/error-message';
 import React, { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 export const FileInput: React.FC = () => {
-  const { register } = useFormContext();
+  // const [isOnChange, setIsOnChange] = useState(false);
+  const { register, formState: { errors } } = useFormContext();
   const [file, setFile] = useState<File | null>(null);
 
   function readImage(currentfile: File): Promise<HTMLImageElement> {
@@ -74,9 +76,34 @@ export const FileInput: React.FC = () => {
       }
 
       <div className="fileButton">Upload</div>
-      <p className="signUpForm__helperText">
-        <pre>format: .jpeg/.jpg  |  max size: 5MB  |  min: 70px X 70px</pre>
-      </p>
+      {!errors['photo']
+      && (
+        <p className="signUpForm__helperText">
+          <pre>format: .jpeg/.jpg  |  max size: 5MB  |  min: 70px X 70px</pre>
+        </p>
+      )}
+
+      {errors['photo']?.type === 'imgType'
+      && (
+        <p className="signUpForm__errorText">
+          Use only .jpeg/.jpg
+        </p>
+      )}
+
+      {errors['photo']?.type === 'size'
+      && (
+        <p className="signUpForm__errorText">
+          max size shouldn&apos;t be more 5MB
+        </p>
+      )}
+
+      {errors['photo']?.type === 'imgWidthAndHeight'
+      && (
+        <p className="signUpForm__errorText">
+          min size shouldn&apos;t be less 70px X 70px
+        </p>
+      )}
+
     </label>
   );
 };
