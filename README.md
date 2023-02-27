@@ -6,3 +6,5 @@ A hint should appear if the text does not fit in the field (you can see "..." in
 The buttons "Sign Up" and "Users" smoothly move to the corresponding section.
 The "Show more" button shows the next 6 users. If there are no more users, the button disappears.
 After registering a new user, he appears at the top of the list (without additional page refresh).
+
+[DEMO LINK](https://svitlana-yudina.github.io/test-task/)
