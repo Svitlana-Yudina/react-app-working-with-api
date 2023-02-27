@@ -9,18 +9,18 @@
     height: 500px;
     width: 100%;
     
-    background-image: url('../../images/mobile.png');
+    background-image: url('../../images/mobile.webp');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: left bottom;
 
     @include onDesktop {
       height: 650px;
-      background-image: url('../../images/desktop.png');
+      background-image: url('../../images/desktop.webp');
     }
 
     @include onDesktopXL {
-      background-image: url('../../images/desktop_XL.png');
+      background-image: url('../../images/desktop_XL.webp');
     }
   }
 
