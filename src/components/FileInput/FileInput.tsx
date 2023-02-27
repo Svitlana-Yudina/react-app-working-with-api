@@ -1,10 +1,8 @@
 /* eslint-disable no-shadow */
-// import { ErrorMessage } from '@hookform/error-message';
 import React, { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 export const FileInput: React.FC = () => {
-  // const [isOnChange, setIsOnChange] = useState(false);
   const { register, formState: { errors } } = useFormContext();
   const [file, setFile] = useState<File | null>(null);
 

@@ -19,8 +19,8 @@ type Props = {
 export const SignUpForm: React.FC<Props> = React.memo(function SignUpForm(
   { setPageCount }: Props,
 ) {
-  const namePattern = new RegExp(/[-0-9A-Za-z]{2,60}/);
-  const emailPattern = new RegExp(/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/);
+  const namePattern = new RegExp(/[-0-9A-Za-zа-яА-я]{2,60}/);
+  const emailPattern = new RegExp(/^([A-Za-z0-9_-]+\.)*[A-Za-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/);
   const phonePattern = new RegExp(/^\+38[\(]\d{3}[\)]\d{3}[\-]\d{2}[\-]\d{2}$/);
 
   const nameCheck = {
