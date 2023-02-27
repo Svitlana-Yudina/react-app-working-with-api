@@ -20,20 +20,10 @@ export const useLoadingUsers = () => {
       try {
         const usersFromServer = await getUsersByPage(page.count);
 
-        setUsersInfo((prevInfo) => {
-          if (prevInfo.users.length < page.count * 6) {
-            return {
-              users: [...prevInfo.users, ...usersFromServer.users],
-              totalPages: usersFromServer['total_pages'],
-              totalUsers: usersFromServer['total_users'],
-            };
-          }
-
-          return {
-            users: usersFromServer.users,
-            totalPages: usersFromServer['total_pages'],
-            totalUsers: usersFromServer['total_users'],
-          };
+        setUsersInfo({
+          users: usersFromServer.users,
+          totalPages: usersFromServer['total_pages'],
+          totalUsers: usersFromServer['total_users'],
         });
       } catch (err) {
         throw new Error(`${err}`);
